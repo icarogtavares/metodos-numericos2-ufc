@@ -25,7 +25,6 @@ function askForInputs (input) {
   }
 
   function askAndReturnFuncao () {
-    console.log(funcoes.funcoesName);
     const funcaoNameKey = readlineSync.keyInSelect(funcoes.funcoesName, 'Qual função você deseja para integrar?');
     const funcaoName = funcoes.funcoesName[funcaoNameKey];
     return funcoes.getFuncaoByName(funcaoName);
