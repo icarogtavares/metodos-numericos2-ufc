@@ -49,30 +49,54 @@ function askForInputs (input) {
  * @param {functionToIntegrate} input.funcao
  */
 function integrate (input) {
+  function integracoesFilosofiaFechada (input, xInicial, xFinal) {
+    switch (input.grau + 1) {
+      case 1:
+        return fechada.funcaoGrauUm(input.funcao, xInicial, xFinal);
+      case 2:
+        return 0;
+      case 3:
+        return 0;
+      case 4:
+        return 0;
+      default:
+        throw new Error('Grau para filosofia FECHADA inválida!');
+    }
+  }
+  function integracoesFilosofiaAberta (input, xInicial, xFinal) {
+    switch (input.grau) {
+      case 0:
+        return 0;
+      case 1:
+        return 0;
+      case 2:
+        return 0;
+      case 3:
+        return 0;
+      case 4:
+        return 0;
+      default:
+        throw new Error('Grau para filosofia ABERTA inválida!');
+    }
+  }
   let particao = 1;
   let integralAntiga = 0;
+
   while (true) {
-    const deltax = (input.limiteSuperior - input.limiteInferior) / particao;
+    const deltaX = (input.limiteSuperior - input.limiteInferior) / particao;
     let integralAtual = 0;
     for (let i = 0; i < particao; i += 1) {
-      const xInicial = input.limiteInferior + (i * deltax);
-      const xFinal = xInicial + deltax;
+      const xInicial = input.limiteInferior + (i * deltaX);
+      const xFinal = xInicial + deltaX;
       switch (input.fa) {
         case FA.FILOSOFIA_FECHADA:
-          switch (input.grau + 1) {
-            case 1:
-              integralAtual += fechada.funcaoGrauUm(input.funcao, xInicial, xFinal);
-              break;
-            case 2:
-              break;
-            default:
-              break;
-          }
+          integralAtual += integracoesFilosofiaFechada(input, xInicial, xFinal);
           break;
         case FA.FILOSOFIA_ABERTA:
+          integralAtual += integracoesFilosofiaAberta(input, xInicial, xFinal);
           break;
         default:
-          break;
+          throw new Error('Filosofia inválida!');
       }
     }
     const erro = math.abs(integralAtual - integralAntiga);
