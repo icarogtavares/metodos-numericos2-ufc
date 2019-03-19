@@ -26,11 +26,11 @@ const colors = {
   BgWhite: '\x1b[47m',
 };
 
-function printWithColor (message, fontColor, backgroundColor) {
-  console.log(`${fontColor}${backgroundColor}${message}${colors.Reset}`);
+function getStringWithColor (message, fontColor, backgroundColor) {
+  return `${fontColor}${backgroundColor}${message}${colors.Reset}`;
 }
 
 module.exports = {
   colors,
-  printWithColor,
+  getStringWithColor,
 };

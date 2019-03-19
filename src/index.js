@@ -5,7 +5,7 @@ const readlineSync = require('readline-sync');
 const fechada = require('./fechada');
 const aberta = require('./aberta');
 const funcoes = require('./funcoes');
-const { printWithColor, colors } = require('./console-color');
+const { getStringWithColor, colors } = require('./console-color');
 
 const input = {};
 
@@ -15,31 +15,35 @@ const FA = {
 };
 
 function askForInputs (input) {
+  function questionStringWithColor (question) {
+    return `${getStringWithColor(question.trim(), colors.FgWhite, colors.BgBlack)} `;
+  }
+
   function askAndReturnFilosofia () {
     const filosofias = ['Fechada', 'Aberta'];
-    return readlineSync.keyInSelect(filosofias, 'Qual filosofia? ');
+    return readlineSync.keyInSelect(filosofias, questionStringWithColor('Qual filosofia?'));
   }
 
   function askAndReturnGrau (filosofia) {
     const primeiroGrau = filosofia === FA.FILOSOFIA_FECHADA ? 1 : 0;
 
-    const grau = readlineSync.keyIn(`Qual grau do polinômio de substituição você deseja?
-      Pressione uma tecla de ${primeiroGrau} a 4: `, { limit: `$<${primeiroGrau}-4>` });
+    console.log(questionStringWithColor('Qual grau do polinômio de substituição você deseja?'));
+    const grau = readlineSync.keyIn(questionStringWithColor(`Pressione uma tecla de ${primeiroGrau} a 4: `), { limit: `$<${primeiroGrau}-4>` });
 
     return Number(grau);
   }
 
   function askAndReturnFuncao () {
-    const funcaoNameKey = readlineSync.keyInSelect(funcoes.funcoesName, 'Qual função você deseja para integrar?');
+    const funcaoNameKey = readlineSync.keyInSelect(funcoes.funcoesName, questionStringWithColor('Qual função você deseja para integrar?'));
     const funcaoName = funcoes.funcoesName[funcaoNameKey];
     return funcoes.getFuncaoByName(funcaoName);
   }
 
-  input.limiteInferior = readlineSync.questionFloat('Qual é o limite inferior? ');
-  input.limiteSuperior = readlineSync.questionFloat('Qual é o limite superior? ');
+  input.limiteInferior = readlineSync.questionFloat(questionStringWithColor('Qual é o limite inferior?'));
+  input.limiteSuperior = readlineSync.questionFloat(questionStringWithColor('Qual é o limite superior?'));
   input.fa = askAndReturnFilosofia();
   input.grau = askAndReturnGrau(input.fa);
-  input.tolerancia = readlineSync.questionFloat('Qual é a tolerância? ');
+  input.tolerancia = readlineSync.questionFloat(questionStringWithColor('Qual é a tolerância?'));
   input.funcao = askAndReturnFuncao();
 
   return input;
@@ -150,12 +154,12 @@ function integrate (input) {
  */
 function finish (resultado) {
   console.log('\n');
-  printWithColor(`Resultado: ${resultado.resultado}`, colors.FgGreen, colors.BgBlack);
-  printWithColor(`Erro: ${resultado.erro}`, colors.FgCyan, colors.BgBlack);
+  console.log(getStringWithColor(`Resultado: ${resultado.resultado}`, colors.FgGreen, colors.BgBlack));
+  console.log(getStringWithColor(`Erro: ${resultado.erro}`, colors.FgCyan, colors.BgBlack));
 }
 
 function handleError (err) {
-  printWithColor(err.message, colors.FgRed, colors.BgBlack);
+  console.log(getStringWithColor(err.message, colors.FgRed, colors.BgBlack));
 }
 
 Promise.resolve(input)
