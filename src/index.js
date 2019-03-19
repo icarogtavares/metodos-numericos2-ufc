@@ -32,27 +32,11 @@ function askForInputs (input) {
   return input;
 }
 
-/** Função para integração
-    @name functionToIntegrate
-    @function
-    @param {Number} value Valor a ser calculado
-*/
-
-/**
- * Calcula a integral
- * @param {Object} input Input do usuário
- * @param {Number} input.limiteInferior Limite inferior da integral
- * @param {Number} input.limiteSuperior Limite superior da integral
- * @param {Number} input.fa Filosofia
- * @param {Number} input.grau Grau da filosofia
- * @param {Number} input.tolerancia Tolerância do erro
- * @param {functionToIntegrate} input.funcao
- */
-function integrate (input) {
-  function integracoesFilosofiaFechada (input, xInicial, xFinal) {
+function checkPhilosophyAndReturnIntegrateFunction (input) {
+  function integracoesFilosofiaFechada (input) {
     switch (input.grau + 1) {
       case 1:
-        return fechada.funcaoGrauUm(input.funcao, xInicial, xFinal);
+        return fechada.funcaoGrauUm;
       case 2:
         return 0;
       case 3:
@@ -63,7 +47,7 @@ function integrate (input) {
         throw new Error('Grau para filosofia FECHADA inválida!');
     }
   }
-  function integracoesFilosofiaAberta (input, xInicial, xFinal) {
+  function integracoesFilosofiaAberta (input) {
     switch (input.grau) {
       case 0:
         return 0;
@@ -79,6 +63,47 @@ function integrate (input) {
         throw new Error('Grau para filosofia ABERTA inválida!');
     }
   }
+
+  switch (input.fa) {
+    case FA.FILOSOFIA_FECHADA:
+      input.integrateFunction = integracoesFilosofiaFechada(input);
+      break;
+    case FA.FILOSOFIA_ABERTA:
+      input.integrateFunction = integracoesFilosofiaAberta(input);
+      break;
+    default:
+      throw new Error('Filosofia inválida!');
+  }
+
+  return input;
+}
+
+/** Função para integração
+    @name functionToIntegrate
+    @function
+    @param {Number} value Valor a ser calculado
+*/
+
+/** Função para integração
+    @name integrateFunction
+    @function
+    @param {functionToIntegrate} funcao
+    @param {Number} limiteInferior
+    @param {Number} limiteSuperior
+*/
+
+/**
+ * Calcula a integral
+ * @param {Object} input Input do usuário
+ * @param {Number} input.limiteInferior Limite inferior da integral
+ * @param {Number} input.limiteSuperior Limite superior da integral
+ * @param {Number} input.fa Filosofia
+ * @param {Number} input.grau Grau da filosofia
+ * @param {Number} input.tolerancia Tolerância do erro
+ * @param {functionToIntegrate} input.funcao Função a ser integrada
+ * @param {integrateFunction} input.integrateFunction Função de integração
+ */
+function integrate (input) {
   let particao = 1;
   let integralAntiga = 0;
 
@@ -88,16 +113,7 @@ function integrate (input) {
     for (let i = 0; i < particao; i += 1) {
       const xInicial = input.limiteInferior + (i * deltaX);
       const xFinal = xInicial + deltaX;
-      switch (input.fa) {
-        case FA.FILOSOFIA_FECHADA:
-          integralAtual += integracoesFilosofiaFechada(input, xInicial, xFinal);
-          break;
-        case FA.FILOSOFIA_ABERTA:
-          integralAtual += integracoesFilosofiaAberta(input, xInicial, xFinal);
-          break;
-        default:
-          throw new Error('Filosofia inválida!');
-      }
+      integralAtual += input.integrateFunction(input.funcao, xInicial, xFinal);
     }
     const erro = math.abs(integralAtual - integralAntiga);
     if (erro <= input.tolerancia) {
@@ -127,5 +143,6 @@ function finish (resultado) {
 
 Promise.resolve(input)
   .then(askForInputs)
+  .then(checkPhilosophyAndReturnIntegrateFunction)
   .then(integrate)
   .then(finish);
