@@ -19,7 +19,7 @@ function funcaoGrauUm (funcao, limiteInferior, limiteSuperior) {
 }
 
 function funcaoGrauDois (funcao, limiteInferior, limiteSuperior) {
-  const h = subtract(limiteInferior, limiteSuperior);
+  const h = subtract(limiteSuperior, limiteInferior);
   return chain(h)
     .divide(3)
     .multiply(
