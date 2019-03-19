@@ -55,7 +55,7 @@ function checkPhilosophyAndReturnIntegrateFunction (input) {
       case 1:
         return aberta.funcaoGrauUm;
       case 2:
-        return 0;
+        return aberta.funcaoGrauDois;
       case 3:
         return 0;
       case 4:

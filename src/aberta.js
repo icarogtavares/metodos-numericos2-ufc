@@ -2,6 +2,7 @@ const {
   chain,
   add,
   divide,
+  multiply,
 } = require('mathjs');
 
 function funcaoGrauZero (funcao, limiteInferior, limiteSuperior) {
@@ -33,7 +34,35 @@ function funcaoGrauUm (funcao, limiteInferior, limiteSuperior) {
     .done();
 }
 
+function funcaoGrauDois (funcao, limiteInferior, limiteSuperior) {
+  const h = chain(limiteSuperior)
+    .subtract(limiteInferior)
+    .divide(4)
+    .done();
+  return multiply(
+    chain(4)
+      .multiply(h)
+      .divide(3)
+      .done(),
+    chain(2)
+      .multiply(funcao(add(limiteInferior, h)))
+      .subtract(funcao(add(
+        limiteInferior,
+        multiply(2, h)
+      )))
+      .add(multiply(
+        2,
+        funcao(add(
+          limiteInferior,
+          multiply(3, h)
+        ))
+      ))
+      .done()
+  );
+}
+
 module.exports = {
   funcaoGrauZero,
   funcaoGrauUm,
+  funcaoGrauDois,
 };
