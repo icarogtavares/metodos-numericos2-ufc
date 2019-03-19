@@ -12,7 +12,6 @@ function funcaoGrauZero (funcao, limiteInferior, limiteSuperior) {
       add(limiteInferior, limiteSuperior),
       2.0
     )))
-    .divide(2.0)
     .done();
 }
 
