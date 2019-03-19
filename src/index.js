@@ -75,7 +75,7 @@ function checkPhilosophyAndReturnIntegrateFunction (input) {
       case 3:
         return aberta.funcaoGrauTres;
       case 4:
-        return 0;
+        return aberta.funcaoGrauQuatro;
       default:
         throw new Error('Grau para filosofia ABERTA inválida!');
     }
