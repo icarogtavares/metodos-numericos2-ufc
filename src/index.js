@@ -38,7 +38,7 @@ function checkPhilosophyAndReturnIntegrateFunction (input) {
       case 1:
         return fechada.funcaoGrauUm;
       case 2:
-        return 0;
+        return fechada.funcaoGrauDois;
       case 3:
         return 0;
       case 4:
