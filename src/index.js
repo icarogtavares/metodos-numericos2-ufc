@@ -3,6 +3,7 @@ const math = require('mathjs');
 const Promise = require('bluebird');
 const readlineSync = require('readline-sync');
 const fechada = require('./fechada');
+const aberta = require('./aberta');
 
 const input = {};
 
@@ -50,7 +51,7 @@ function checkPhilosophyAndReturnIntegrateFunction (input) {
   function integracoesFilosofiaAberta (input) {
     switch (input.grau) {
       case 0:
-        return 0;
+        return aberta.funcaoGrauZero;
       case 1:
         return 0;
       case 2:
