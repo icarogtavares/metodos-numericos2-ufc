@@ -106,11 +106,11 @@ function checkPhilosophyAndReturnIntegrateFunction (input) {
  */
 function integrate (input) {
   let particao = 1;
-  let integralAntiga = 0;
+  let integralAntiga = 0.0;
 
   while (true) {
     const deltaX = (input.limiteSuperior - input.limiteInferior) / particao;
-    let integralAtual = 0;
+    let integralAtual = 0.0;
     for (let i = 0; i < particao; i += 1) {
       const xInicial = input.limiteInferior + (i * deltaX);
       const xFinal = xInicial + deltaX;

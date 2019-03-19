@@ -8,7 +8,7 @@ const {
 function funcaoGrauUm (funcao, limiteInferior, limiteSuperior) {
   return chain(limiteSuperior)
     .subtract(limiteInferior)
-    .divide(2)
+    .divide(2.0)
     .multiply(
       add(
         funcao(limiteInferior),
@@ -21,7 +21,7 @@ function funcaoGrauUm (funcao, limiteInferior, limiteSuperior) {
 function funcaoGrauDois (funcao, limiteInferior, limiteSuperior) {
   const h = subtract(limiteSuperior, limiteInferior);
   return chain(h)
-    .divide(3)
+    .divide(3.0)
     .multiply(
       add(
         funcao(limiteInferior),
