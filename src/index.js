@@ -53,7 +53,7 @@ function checkPhilosophyAndReturnIntegrateFunction (input) {
       case 0:
         return aberta.funcaoGrauZero;
       case 1:
-        return 0;
+        return aberta.funcaoGrauUm;
       case 2:
         return 0;
       case 3:
