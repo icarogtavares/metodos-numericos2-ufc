@@ -73,7 +73,7 @@ function checkPhilosophyAndReturnIntegrateFunction (input) {
       case 2:
         return aberta.funcaoGrauDois;
       case 3:
-        return 0;
+        return aberta.funcaoGrauTres;
       case 4:
         return 0;
       default:

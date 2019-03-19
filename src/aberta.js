@@ -60,8 +60,43 @@ function funcaoGrauDois (funcao, limiteInferior, limiteSuperior) {
   );
 }
 
+function funcaoGrauTres (funcao, limiteInferior, limiteSuperior) {
+  const h = chain(limiteSuperior)
+    .subtract(limiteInferior)
+    .divide(5.0)
+    .done();
+  return multiply(
+    chain(h)
+      .multiply(5.0)
+      .divide(24.0)
+      .done(),
+    add(
+      multiply(
+        11,
+        funcao(add(limiteInferior, h))
+      ),
+      funcao(add(
+        limiteInferior,
+        multiply(2.0, h)
+      )),
+      funcao(add(
+        limiteInferior,
+        multiply(3.0, h)
+      )),
+      multiply(
+        11,
+        funcao(add(
+          limiteInferior,
+          multiply(4.0, h)
+        ))
+      )
+    )
+  );
+}
+
 module.exports = {
   funcaoGrauZero,
   funcaoGrauUm,
   funcaoGrauDois,
+  funcaoGrauTres,
 };
