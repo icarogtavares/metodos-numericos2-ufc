@@ -17,7 +17,8 @@
   "license": "ISC",
   "dependencies": {
     "bluebird": "^3.5.3",
-    "mathjs": "^5.7.0"
+    "mathjs": "^5.7.0",
+    "readline-sync": "^1.4.9"
   },
   "devDependencies": {
     "eslint": "^5.15.3",
