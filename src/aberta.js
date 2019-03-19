@@ -1,18 +1,6 @@
-const {
-  chain,
-  add,
-  divide,
-  multiply,
-} = require('mathjs');
-
 function funcaoGrauZero (funcao, limiteInferior, limiteSuperior) {
-  return chain(limiteSuperior)
-    .subtract(limiteInferior)
-    .multiply(funcao(divide(
-      add(limiteInferior, limiteSuperior),
-      2.0
-    )))
-    .done();
+  const h = limiteInferior + limiteSuperior / 2.0;
+  return (limiteSuperior - limiteInferior) * funcao(h);
 }
 
 function funcaoGrauUm (funcao, limiteInferior, limiteSuperior) {
@@ -31,32 +19,9 @@ function funcaoGrauDois (funcao, limiteInferior, limiteSuperior) {
 
 function funcaoGrauTres (funcao, limiteInferior, limiteSuperior) {
   const h = (limiteSuperior - limiteInferior) / 5.0;
-  return multiply(
-    chain(h)
-      .multiply(5.0)
-      .divide(24.0)
-      .done(),
-    add(
-      multiply(
-        11,
-        funcao(add(limiteInferior, h))
-      ),
-      funcao(add(
-        limiteInferior,
-        multiply(2.0, h)
-      )),
-      funcao(add(
-        limiteInferior,
-        multiply(3.0, h)
-      )),
-      multiply(
-        11,
-        funcao(add(
-          limiteInferior,
-          multiply(4.0, h)
-        ))
-      )
-    )
+  return h * 5.0 / 24.0 * (
+    11 * funcao(limiteInferior + h) + funcao(limiteInferior + 2.0 * h)
+    + funcao(limiteInferior + 3.0 * h) + 11 * funcao(limiteInferior + 4.0 * h)
   );
 }
 
