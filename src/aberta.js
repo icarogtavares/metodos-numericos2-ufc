@@ -16,55 +16,21 @@ function funcaoGrauZero (funcao, limiteInferior, limiteSuperior) {
 }
 
 function funcaoGrauUm (funcao, limiteInferior, limiteSuperior) {
-  const h = chain(limiteSuperior)
-    .subtract(limiteInferior)
-    .divide(3.0)
-    .done();
-  return chain(limiteSuperior)
-    .subtract(limiteInferior)
-    .divide(2.0)
-    .multiply(add(
-      funcao(add(limiteInferior, h)),
-      funcao(chain(limiteInferior)
-        .add(2)
-        .multiply(h)
-        .done())
-    ))
-    .done();
+  const h = (limiteSuperior - limiteInferior) / 3.0;
+  return (limiteSuperior - limiteInferior) / 2 * (funcao(limiteInferior + h) + funcao(limiteInferior + 2 * h));
 }
 
 function funcaoGrauDois (funcao, limiteInferior, limiteSuperior) {
-  const h = chain(limiteSuperior)
-    .subtract(limiteInferior)
-    .divide(4.0)
-    .done();
-  return multiply(
-    chain(4)
-      .multiply(h)
-      .divide(3.0)
-      .done(),
-    chain(2)
-      .multiply(funcao(add(limiteInferior, h)))
-      .subtract(funcao(add(
-        limiteInferior,
-        multiply(2.0, h)
-      )))
-      .add(multiply(
-        2,
-        funcao(add(
-          limiteInferior,
-          multiply(3.0, h)
-        ))
-      ))
-      .done()
+  const h = (limiteSuperior - limiteInferior) / 4.0;
+  return 4 * h / 3 * (
+    2 * funcao(limiteInferior + h)
+    - funcao(limiteInferior + 2.0 * h)
+    + 2 * funcao(limiteInferior + 3.0 * h)
   );
 }
 
 function funcaoGrauTres (funcao, limiteInferior, limiteSuperior) {
-  const h = chain(limiteSuperior)
-    .subtract(limiteInferior)
-    .divide(5.0)
-    .done();
+  const h = (limiteSuperior - limiteInferior) / 5.0;
   return multiply(
     chain(h)
       .multiply(5.0)
