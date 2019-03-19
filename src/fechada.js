@@ -1,4 +1,9 @@
-const { chain, add, subtract, multiply } = require('mathjs');
+const {
+  chain,
+  add,
+  subtract,
+  multiply,
+} = require('mathjs');
 
 function funcaoGrauUm (funcao, limiteInferior, limiteSuperior) {
   return chain(limiteSuperior)
