@@ -1,5 +1,5 @@
 function funcaoGrauZero (funcao, limiteInferior, limiteSuperior) {
-  const h = limiteInferior + limiteSuperior / 2.0;
+  const h = (limiteInferior + limiteSuperior) / 2.0;
   return (limiteSuperior - limiteInferior) * funcao(h);
 }
 
