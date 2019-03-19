@@ -4,6 +4,7 @@ const Promise = require('bluebird');
 const readlineSync = require('readline-sync');
 const fechada = require('./fechada');
 const aberta = require('./aberta');
+const funcoes = require('./funcoes');
 
 const input = {};
 
@@ -23,12 +24,19 @@ function askForInputs (input) {
     return readlineSync.keyInSelect(graus, 'Qual grau? ');
   }
 
+  function askAndReturnFuncao () {
+    console.log(funcoes.funcoesName);
+    const funcaoNameKey = readlineSync.keyInSelect(funcoes.funcoesName, 'Qual função você deseja para integrar?');
+    const funcaoName = funcoes.funcoesName[funcaoNameKey];
+    return funcoes.getFuncaoByName(funcaoName);
+  }
+
   input.limiteInferior = readlineSync.questionFloat('Qual é o limite inferior? ');
   input.limiteSuperior = readlineSync.questionFloat('Qual é o limite superior? ');
   input.fa = askAndReturnFilosofia();
   input.grau = askAndReturnGrau(input.fa);
   input.tolerancia = readlineSync.questionFloat('Qual é a tolerância? ');
-  input.funcao = x => x * x;
+  input.funcao = askAndReturnFuncao();
 
   return input;
 }
