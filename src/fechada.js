@@ -1,7 +1,6 @@
 const {
   chain,
   add,
-  subtract,
   multiply,
 } = require('mathjs');
 
@@ -19,7 +18,10 @@ function funcaoGrauUm (funcao, limiteInferior, limiteSuperior) {
 }
 
 function funcaoGrauDois (funcao, limiteInferior, limiteSuperior) {
-  const h = subtract(limiteSuperior, limiteInferior);
+  const h = chain(limiteSuperior)
+    .subtract(limiteInferior)
+    .divide(2.0)
+    .done();
   return chain(h)
     .divide(3.0)
     .multiply(
