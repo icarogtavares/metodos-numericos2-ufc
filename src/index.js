@@ -5,6 +5,7 @@ const readlineSync = require('readline-sync');
 const fechada = require('./fechada');
 const aberta = require('./aberta');
 const funcoes = require('./funcoes');
+const { printWithColor, colors } = require('./console-color');
 
 const input = {};
 
@@ -148,13 +149,13 @@ function integrate (input) {
  * @param {Number} resultado.erro Último erro obtido
  */
 function finish (resultado) {
-  console.log('\n\n');
-  console.log('Resultado: ', resultado.resultado);
-  console.log('Erro: ', resultado.erro);
+  console.log('\n');
+  printWithColor(`Resultado: ${resultado.resultado}`, colors.FgGreen, colors.BgBlack);
+  printWithColor(`Erro: ${resultado.erro}`, colors.FgCyan, colors.BgBlack);
 }
 
 function handleError (err) {
-  console.log(err);
+  printWithColor(err.message, colors.FgRed, colors.BgBlack);
 }
 
 Promise.resolve(input)
