@@ -20,8 +20,12 @@ function askForInputs (input) {
   }
 
   function askAndReturnGrau (filosofia) {
-    const graus = filosofia === FA.FILOSOFIA_FECHADA ? [1, 2, 3, 4] : [0, 1, 2, 3, 4];
-    return readlineSync.keyInSelect(graus, 'Qual grau? ');
+    const primeiroGrau = filosofia === FA.FILOSOFIA_FECHADA ? 1 : 0;
+
+    const grau = readlineSync.keyIn(`Qual grau do polinômio de substituição você deseja?
+      Pressione uma tecla de ${primeiroGrau} a 4: `, { limit: `$<${primeiroGrau}-4>` });
+
+    return Number(grau);
   }
 
   function askAndReturnFuncao () {
@@ -42,7 +46,7 @@ function askForInputs (input) {
 
 function checkPhilosophyAndReturnIntegrateFunction (input) {
   function integracoesFilosofiaFechada (input) {
-    switch (input.grau + 1) {
+    switch (input.grau) {
       case 1:
         return fechada.funcaoGrauUm;
       case 2:
@@ -149,8 +153,13 @@ function finish (resultado) {
   console.log('Erro: ', resultado.erro);
 }
 
+function handleError (err) {
+  console.log(err);
+}
+
 Promise.resolve(input)
   .then(askForInputs)
   .then(checkPhilosophyAndReturnIntegrateFunction)
   .then(integrate)
-  .then(finish);
+  .then(finish)
+  .catch(handleError);
