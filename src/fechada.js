@@ -4,15 +4,18 @@ function funcaoGrauUm (funcao, limiteInferior, limiteSuperior) {
 
 function funcaoGrauDois (funcao, limiteInferior, limiteSuperior) {
   const h = (limiteSuperior - limiteInferior) / 2.0;
-  return h / 3.0 * (funcao(limiteInferior) + 4 * funcao(limiteInferior + h) + funcao(limiteSuperior));
+  return h / 3.0 * (
+    funcao(limiteInferior)
+    + 4.0 * funcao(limiteInferior + h)
+    + funcao(limiteSuperior));
 }
 
 function funcaoGrauTres (funcao, limiteInferior, limiteSuperior) {
   const h = (limiteSuperior - limiteInferior) / 3.0;
-  return 9 * h / 24 * (
+  return 9.0 * h / 24 * (
     funcao(limiteInferior)
-    + 3 * funcao(limiteInferior + h)
-    + 3 * funcao(limiteInferior + 2 * h)
+    + 3.0 * funcao(limiteInferior + h)
+    + 3.0 * funcao(limiteInferior + 2.0 * h)
     + funcao(limiteSuperior)
   );
 }
