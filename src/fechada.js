@@ -12,7 +12,7 @@ function funcaoGrauDois (funcao, limiteInferior, limiteSuperior) {
 
 function funcaoGrauTres (funcao, limiteInferior, limiteSuperior) {
   const h = (limiteSuperior - limiteInferior) / 3.0;
-  return 9.0 * h / 24 * (
+  return (limiteSuperior - limiteInferior) / 8.0 * (
     funcao(limiteInferior)
     + 3.0 * funcao(limiteInferior + h)
     + 3.0 * funcao(limiteInferior + 2.0 * h)
@@ -22,7 +22,7 @@ function funcaoGrauTres (funcao, limiteInferior, limiteSuperior) {
 
 function funcaoGrauQuatro (funcao, limiteInferior, limiteSuperior) {
   const h = (limiteSuperior - limiteInferior) / 4.0;
-  return 16 * h / 360 * (
+  return (limiteSuperior - limiteInferior) / 90 * (
     7.0 * funcao(limiteInferior)
     + 32.0 * funcao(limiteInferior + h)
     + 12.0 * funcao(limiteInferior + 2.0 * h)
