@@ -7,7 +7,18 @@ function funcaoGrauDois (funcao, limiteInferior, limiteSuperior) {
   return h / 3.0 * (funcao(limiteInferior) + 4 * funcao(limiteInferior + h) + funcao(limiteSuperior));
 }
 
+function funcaoGrauTres (funcao, limiteInferior, limiteSuperior) {
+  const h = (limiteSuperior - limiteInferior) / 3.0;
+  return 9 * h / (
+    funcao(limiteInferior)
+    + 3 * funcao(limiteInferior + h)
+    + 3 * funcao(limiteInferior + 2 * h)
+    + funcao(limiteSuperior)
+  );
+}
+
 module.exports = {
   funcaoGrauUm,
   funcaoGrauDois,
+  funcaoGrauTres,
 };
