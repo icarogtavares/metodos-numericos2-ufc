@@ -17,8 +17,20 @@ function funcaoGrauTres (funcao, limiteInferior, limiteSuperior) {
   );
 }
 
+function funcaoGrauQuatro (funcao, limiteInferior, limiteSuperior) {
+  const h = (limiteSuperior - limiteInferior) / 4.0;
+  return 16 * h / 360 * (
+    7.0 * funcao(limiteInferior)
+    + 32.0 * funcao(limiteInferior + h)
+    + 12.0 * funcao(limiteInferior + 2.0 * h)
+    + 32.0 * funcao(limiteInferior + 3.0 * h)
+    + 7.0 * funcao(limiteSuperior)
+  );
+}
+
 module.exports = {
   funcaoGrauUm,
   funcaoGrauDois,
   funcaoGrauTres,
+  funcaoGrauQuatro,
 };
