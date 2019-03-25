@@ -57,9 +57,9 @@ function checkPhilosophyAndReturnIntegrateFunction (input) {
       case 2:
         return fechada.funcaoGrauDois;
       case 3:
-        return 0;
+        return fechada.funcaoGrauTres;
       case 4:
-        return 0;
+        return fechada.funcaoGrauQuatro;
       default:
         throw new Error('Grau para filosofia FECHADA inválida!');
     }
